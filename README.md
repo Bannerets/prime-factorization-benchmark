@@ -12,8 +12,15 @@ As Webogram is Javascript-based app, we need to solve prime-factorization proble
 Libraries
 =========
 
+### Native BigInt
 
-## [jsbn by Tom Wu](http://www-cs-students.stanford.edu/~tjw/jsbn/)
+> Note: `--harmony-bigint` flag may be required
+
+Native BigInt. (`2n` syntax)
+
+[Proposal](https://github.com/tc39/proposal-bigint)
+
+### [jsbn by Tom Wu](http://www-cs-students.stanford.edu/~tjw/jsbn/)
 
 Probably, the most popular javascript bigint implementation. Is very easy in usage, as it has the same interface as Java [BigInteger](http://docs.oracle.com/javase/7/docs/api/java/math/BigInteger.html).
 
@@ -37,11 +44,27 @@ The code is available in this repo, you can start browsing here: https://github.
 Running tests
 =============
 
-The tests are available via GH-pages: http://zhukov.github.io/prime-factorization-benchmark/.
+The tests are available via GH-pages: http://bannerets.github.io/prime-factorization-benchmark/.
 
 Each test was repeated from 5 to 10 times and the average time was calculated.
 
 You can try to run tests on your platform, just press the corresponding button. For better results, refresh page after each launch.
+
+### Running on Node.js
+
+See [`node.js`](node.js) file.
+
+Results with Native BigInt
+=======
+
+Library  / Browser          | Chrome v67.0 (V8 v6.7) | Node.js v10.0.0 (V8 v6.6.346)
+----------------------------|------------------------|-------------------------------
+jsbn by Tom Wu              | 3.80                   | 28.085
+closure long                | 0.70                   | 78.755
+leemon bigint               | 0.98                   | ?
+leemon bigint via worker    | 2.20                   | -
+native bigint               | 0.90                   | 2.108
+
 
 Results
 =======

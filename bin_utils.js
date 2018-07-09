@@ -149,6 +149,11 @@ function bytesFromLeemonBigInt (bigInt, len) {
   return bytesFromHex(str);
 }
 
+function bytesFromNativeBigInt (bigInt, len) {
+  var str = bigInt.toString(16)
+  return bytesFromHex(str)
+}
+
 
 function bytesToArrayBuffer (b) {
   return (new Uint8Array(b)).buffer;
@@ -284,12 +289,12 @@ function nextRandomInt (maxValue) {
     randomI = 0;
   }
   randomTotal++;
-  
+
   return Math.floor(randoms[randomI++] * maxValue);
 };
 
 function pqPrimeFactorization (pqBytes) {
-  var what = new BigInteger(pqBytes), 
+  var what = new BigInteger(pqBytes),
       result = false;
 
   console.log('PQ start', pqBytes, what.bitLength());
@@ -377,6 +382,8 @@ function pqPrimeBigInteger (what) {
     Q = f;
   }
 
+  // console.log('jsbn', 'P', P.toString(), 'Q', Q.toString())
+
   return [bytesFromBigInt(P), bytesFromBigInt(Q)];
 }
 
@@ -395,6 +402,33 @@ function gcdLong(a, b) {
     }
   }
   return b.equals(goog.math.Long.ZERO) ? a : b;
+}
+
+// function gcdNative(a, b) {
+//   while (a !== 0n && b !== 0n) {
+//     while ((b & 1n) === 0n) {
+//       b >>= 1n;
+//     }
+//     while ((a & 1n) === 0n) {
+//       a >>= 1n;
+//     }
+//     if (a > b) {
+//       a -= b;
+//     } else {
+//       b -= a;
+//     }
+//   }
+//   return b === 0n ? a : b;
+// }
+
+function gcdNative(n, m) {
+  var r = 0n;
+  while (n !== 0n) {
+    r = m % n;
+    m = n;
+    n = r;
+  }
+  return m;
 }
 
 function pqPrimeLong(what) {
@@ -526,5 +560,69 @@ function pqPrimeLeemon (what) {
 
   // console.log(dT(), 'done', bigInt2str(what, 10), bigInt2str(P, 10), bigInt2str(Q, 10));
 
+  // console.log('leemon', 'P', bigInt2str(P, 10), 'Q', bigInt2str(Q, 10));
+
   return [bytesFromLeemonBigInt(P), bytesFromLeemonBigInt(Q)];
+}
+
+// (4) [67, 5, 227, 213]
+// (4) [114, 131, 52, 227]
+
+function pqPrimeNative (what) {
+  var it = 0,
+      g;
+  for (var i = 0; i < 3; i++) {
+    var q = BigInt((nextRandomInt(128) & 15) + 17),
+        x = BigInt(nextRandomInt(1000000000) + 1),
+        y = x,
+        lim = 1 << (i + 18);
+
+    for (var j = 1; j < lim; j++) {
+      ++it;
+      var a = x,
+          b = x,
+          c = q;
+
+      while (b !== 0n) {
+        if ((b & 1n) !== 0n) {
+          c += a;
+          if (c > what) {
+            c -= what;
+          }
+        }
+        a += a;
+        if (a > what) {
+          a -= what;
+        }
+        b >>= 1n;
+      }
+
+      x = c;
+      var z = x < y ? y - x : x - y;
+      g = gcdNative(z, what);
+      if (g !== 1n) {
+        break;
+      }
+      if ((j & (j - 1)) == 0) {
+        y = x;
+      }
+    }
+    if (g > 1n) {
+      break;
+    }
+  }
+
+  var f = what / g, P, Q;
+
+  if (g > f) {
+    P = f;
+    Q = g;
+  } else {
+    P = g;
+    Q = f;
+  }
+
+  // console.log('native', 'P', P, 'Q', Q)
+
+  return [bytesFromNativeBigInt(P), bytesFromNativeBigInt(Q)];
 }

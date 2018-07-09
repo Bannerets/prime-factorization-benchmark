@@ -8,8 +8,11 @@
 
   eval(read('jsbn_combined.js'))
   eval(read('long.js'))
-  eval(read('bigint.js'))
+  // eval(read('bigint.js'))
   eval(read('bin_utils.js'))
+
+  var { pqPrimeLeemon } = require('./leemon_test_node')
+  var { str2bigInt, bpe } = require('./bigint_node')
 
 
   var startTime = (new Date()).getTime();
@@ -47,9 +50,9 @@
         break;
 
       default:
-        // console.log('leemon START');
-        // pqPrimeLeemon(str2bigInt('1dfaf951107f49df', 16, Math.ceil(64 / bpe) + 1));
-        // console.log('leemon', dT());
+        console.log('leemon START');
+        pqPrimeLeemon(str2bigInt('1dfaf951107f49df', 16, Math.ceil(64 / bpe) + 1));
+        console.log('leemon', dT());
     }
   }
 

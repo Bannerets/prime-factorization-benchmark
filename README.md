@@ -50,12 +50,12 @@ See [`node.js`](node.js) file.
 Results with native BigInt
 =======
 
-Library  / Browser          | Chrome v67.0 (V8 v6.7) | Node.js v10.0.0 (V8 v6.6.346)
+Library / Browser           | Chrome v67.0 (V8 v6.7) | Node.js v10.0.0 (V8 v6.6.346)
 ----------------------------|------------------------|-------------------------------
 jsbn by Tom Wu              | 3.80                   | 28.085
 closure long                | 0.70                   | 78.755
-leemon bigint               | 0.98                   | ?
-leemon bigint via worker    | 2.20                   | -
+leemon bigint               | 0.98                   | 1.892
+leemon bigint via worker    | 2.20 (inaccurate)      | -
 native bigint               | 0.90                   | 2.108
 
 

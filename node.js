@@ -1,18 +1,16 @@
 (function () {
-  global.navigator = {}
+  const {
+    pqPrimeBigInteger,
+    pqPrimeLong,
+    pqPrimeLeemon,
+    pqPrimeNative,
+    bytesFromHex
+  } = require('./bin_utils')
 
-  const fs = require('fs')
-  const path = require('path')
-  const read = filename => fs.readFileSync(path.join(__dirname, filename))
-    .toString()
+  const { BigInteger } = require('./jsbn_node')
+  const goog = require('./long')
 
-  eval(read('jsbn_combined.js'))
-  eval(read('long.js'))
-  // eval(read('bigint.js'))
-  eval(read('bin_utils.js'))
-
-  var { pqPrimeLeemon } = require('./leemon_test_node')
-  var { str2bigInt, bpe } = require('./bigint_node')
+  const { str2bigInt, bpe } = require('./bigint_node')
 
 
   var startTime = (new Date()).getTime();

@@ -5,6 +5,27 @@
  * https://github.com/zhukov/webogram/blob/master/LICENSE
  */
 
+if (typeof require === 'function') {
+  var { BigInteger } = require('./jsbn_node')
+  var goog = require('./long')
+
+  var {
+    bigInt2str,
+    copyInt_,
+    copy_,
+    isZero,
+    add_,
+    greater,
+    sub_,
+    rightShift_,
+    eGCD_,
+    equalsInt,
+    divide_,
+    bpe,
+    one
+  } = require('./bigint_node')
+}
+
 function bigint (num) {
   return new BigInteger(num.toString(16), 16);
 }
@@ -625,4 +646,14 @@ function pqPrimeNative (what) {
   // console.log('native', 'P', P, 'Q', Q)
 
   return [bytesFromNativeBigInt(P), bytesFromNativeBigInt(Q)];
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    pqPrimeBigInteger,
+    pqPrimeLong,
+    pqPrimeLeemon,
+    pqPrimeNative,
+    bytesFromHex
+  }
 }

@@ -54,7 +54,7 @@ You can try to run tests on your platform, just press the corresponding button. 
 
 See [`node.js`](node.js) file.
 
-Results with Native BigInt
+Results with native BigInt
 =======
 
 Library  / Browser          | Chrome v67.0 (V8 v6.7) | Node.js v10.0.0 (V8 v6.6.346)
@@ -66,7 +66,7 @@ leemon bigint via worker    | 2.20                   | -
 native bigint               | 0.90                   | 2.108
 
 
-Results
+Old results
 =======
 
 Here is the table with results for my hardware. 

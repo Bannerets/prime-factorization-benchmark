@@ -28,7 +28,7 @@
 
       case 'cl':
         console.log('math.Long by Google START');
-        pqPrimeLong(goog.math.Long.fromString('1dfaf951107f49df', 16))
+        pqPrimeLong(goog.math.Long.fromString('1dfaf951107f49df', 16));
         console.log('math.Long by Google', dT());
         break;
 
@@ -54,9 +54,9 @@
   }
 
   // launchTest('bi')
-  launchTest('cl')
+  // launchTest('cl')
   // launchTest('le')
-  // launchTest('na')
+  launchTest('na')
 
   // ---
 

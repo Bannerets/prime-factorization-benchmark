@@ -27,12 +27,10 @@
 /*! MODIFICATION
 The following line was added by Igor Zhukov in order to make library compatibile with other app parts
 */
-this.goog = {provide: function () {}, math: {}};
+var goog = {provide: function () {}, math: {}};
 
 
 goog.provide('goog.math.Long');
-
-
 
 /**
  * Constructs a 64-bit two's-complement integer, given its low and high 32-bit
@@ -811,3 +809,7 @@ goog.math.Long.prototype.shiftRightUnsigned = function(numBits) {
     }
   }
 };
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = goog
+}
